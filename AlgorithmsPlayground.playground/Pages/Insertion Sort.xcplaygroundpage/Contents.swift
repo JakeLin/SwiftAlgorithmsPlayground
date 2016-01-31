@@ -1,5 +1,3 @@
-//: [Previous](@previous)
-
 //: # Insertion Sort
 
 import Foundation
