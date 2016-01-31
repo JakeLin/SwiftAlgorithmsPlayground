@@ -22,6 +22,7 @@ class LinkedList<T: Equatable> {
   var current: Node<T>?
   var head: Node<T>?
   var tail: Node<T>?
+  var count: Int = 0
   
   private var previous: Node<T>?
   
@@ -56,10 +57,35 @@ class LinkedList<T: Equatable> {
     
     // the newest one is the new tail
     tail = current
+    
+    // increas the count
+    count += 1
   }
   
   func removeNodeAtIndex(index: Int) {
+    guard index < count && index >= 0 else {
+      fatalError("Index \(index) does not exist!")
+    }
     
+    var nodeToRemove = head
+    for i in 0...index {
+      // Find it
+      if i == index {
+        // It is the head
+        if i == 0 {
+          head = nodeToRemove?.next
+        } else if (i == count-1) {
+          tail = nodeToRemove?.previous
+        }
+        
+        nodeToRemove?.previous?.next = nodeToRemove?.next
+        nodeToRemove?.next?.previous = nodeToRemove?.previous
+        count -= 1
+        nodeToRemove = nil
+        break
+      }
+      nodeToRemove = nodeToRemove?.next
+    }
   }
 }
 
@@ -76,5 +102,29 @@ print("linkedList.tail=\(linkedList.tail?.value)")
 
 linkedList.printAllNodes()
 
+linkedList.removeNodeAtIndex(7)
+print("linkedList.head=\(linkedList.head?.value)")
+print("linkedList.tail=\(linkedList.tail?.value)")
+linkedList.printAllNodes()
+
+linkedList.removeNodeAtIndex(8)
+print("linkedList.head=\(linkedList.head?.value)")
+print("linkedList.tail=\(linkedList.tail?.value)")
+linkedList.printAllNodes()
+
+linkedList.removeNodeAtIndex(5)
+print("linkedList.head=\(linkedList.head?.value)")
+print("linkedList.tail=\(linkedList.tail?.value)")
+linkedList.printAllNodes()
+
+linkedList.removeNodeAtIndex(0)
+print("linkedList.head=\(linkedList.head?.value)")
+print("linkedList.tail=\(linkedList.tail?.value)")
+linkedList.printAllNodes()
+
+linkedList.removeNodeAtIndex(0)
+print("linkedList.head=\(linkedList.head?.value)")
+print("linkedList.tail=\(linkedList.tail?.value)")
+linkedList.printAllNodes()
 
 //: [Next](@next)
