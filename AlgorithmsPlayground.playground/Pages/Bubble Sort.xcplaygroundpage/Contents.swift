@@ -2,6 +2,8 @@
 
 //: # Bubble Sort
 
+//: ![Bubble Sort GIF](https://upload.wikimedia.org/wikipedia/commons/c/c8/Bubble-sort-example-300px.gif)
+
 import Foundation
 
 func bubbleSort(var numbers: [Int]) -> [Int] {
@@ -22,7 +24,7 @@ func bubbleSort(var numbers: [Int]) -> [Int] {
 }
 
 let numbers = Int.randomNumbers(10)
-print("unsorted numbers: \(numbers)")
+print("Unsorted numbers: \(numbers)")
 
 let sortedNumbers = bubbleSort(numbers)
 print("Sorted numbers: \(sortedNumbers)")
