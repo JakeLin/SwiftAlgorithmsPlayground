@@ -6,17 +6,19 @@
 
 import Foundation
 
+//: Linked List Node
 class Node<T> {
-  var value: T?
+  var value: T
   var previous: Node?
   var next: Node?
   
-  init(value: T?) {
+  init(value: T) {
     self.value = value
   }
 }
 
-class LinkedList<T> {
+//: Linked List
+class LinkedList<T: Equatable> {
   var current: Node<T>?
   var head: Node<T>?
   var tail: Node<T>?
@@ -40,11 +42,11 @@ class LinkedList<T> {
   
   func addNode(node: Node<T>) {
     if current == nil {
-      // the first one is head
+      // the first one is the head
       head = node
     }
     
-    // save the current as previous node
+    // save the previous current as the previous node
     previous = current
     
     // new current node
@@ -52,17 +54,25 @@ class LinkedList<T> {
     node.previous = previous
     current = node
     
-    // the newest one is tail
+    // the newest one is the new tail
     tail = current
+  }
+  
+  func removeNodeAtIndex(index: Int) {
+    
   }
 }
 
+//: Example
 let linkedList = LinkedList<Int>()
 
 for i in 0..<10 {
   let node = Node<Int>(value: i)
   linkedList.addNode(node)
 }
+
+print("linkedList.head=\(linkedList.head?.value)")
+print("linkedList.tail=\(linkedList.tail?.value)")
 
 linkedList.printAllNodes()
 
