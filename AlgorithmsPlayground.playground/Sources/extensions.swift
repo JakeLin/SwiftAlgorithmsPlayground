@@ -27,7 +27,7 @@ extension MutableCollectionType where Index == Int {
 extension Int {
   public static func randomNumbers(max: Int) -> [Int] {
     var numbers = [Int]()
-    for i in 0...max {
+    for i in 1...max {
       numbers.append(Int(i))
     }
     return numbers.shuffle()
