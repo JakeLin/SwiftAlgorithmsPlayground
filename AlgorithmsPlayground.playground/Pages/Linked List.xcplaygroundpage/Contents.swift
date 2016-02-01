@@ -8,11 +8,10 @@ import Foundation
 
 //: Linked List Node
 class Node<T: Equatable>: Equatable {
-  var value: T
-  var previous: Node?
-  var next: Node?
-  
-  private var uuid: String
+  private(set) var value: T
+  private(set) var previous: Node?
+  private(set) var next: Node?
+  private(set) var uuid: String
   
   init(value: T) {
     self.value = value
@@ -26,12 +25,10 @@ func == <T: Equatable>(lhs: Node<T>, rhs: Node<T>) -> Bool {
 
 //: Linked List
 class LinkedList<T: Equatable> {
-  var current: Node<T>?
-  var head: Node<T>?
-  var tail: Node<T>?
-  var count: Int = 0
-  
-  private var previous: Node<T>?
+  private(set) var current: Node<T>?
+  private(set) var head: Node<T>?
+  private(set) var tail: Node<T>?
+  private(set) var count: Int = 0
   
   func addNodeToTail(node: Node<T>) {
     // First node to the list
@@ -203,8 +200,7 @@ linkedList.printTail()
 linkedList.printCurrent()
 linkedList.printAllNodes()
 
-linkedList.current = linkedList.head
-linkedList.removeNodeAtIndex(0)
+linkedList.removeNodeAtIndex(9)
 linkedList.printHead()
 linkedList.printTail()
 linkedList.printCurrent()
