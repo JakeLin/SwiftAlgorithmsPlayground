@@ -93,29 +93,29 @@ class LinkedList<T: Equatable> {
     count += 1
   }
   
-//  func addNodeBeforeCurrent(node: Node<T>) {
-//    if let current = current {
-//      // Insert node before current
-//      node.previous = current.previous
-//      current.previous = node
-//      node.next = current
-//      
-//      // Update the head if needed
-//      if current == head {
-//        head = node
-//      }
-//    } else {
-//      // If current is nil, this list is empty
-//      head = node
-//      tail = node
-//    }
-//    
-//    current = node
-//    
-//    // increas the count
-//    count += 1
-//  }
-
+  func addNodeBeforeCurrent(node: Node<T>) {
+    if let current = current {
+      // Insert node before current
+      node.previous = current.previous
+      current.previous?.next = node
+      current.previous = node
+      node.next = current
+      
+      // Update the head if needed
+      if current == head {
+        head = node
+      }
+    } else {
+      // If current is nil, this list is empty
+      head = node
+      tail = node
+    }
+    
+    current = node
+    
+    // increas the count
+    count += 1
+  }
   
   // MARK: - remove
   func removeNodeAtIndex(index: Int) {
@@ -211,7 +211,7 @@ let linkedList = LinkedList<Int>()
 
 for i in 0..<10 {
   let node = Node<Int>(value: i)
-  linkedList.addNodeToHead(node)
+  linkedList.addNodeToTail(node)
 }
 
 linkedList.printHead()
@@ -219,15 +219,22 @@ linkedList.printTail()
 linkedList.printCurrent()
 linkedList.printAllNodes()
 
-linkedList.current = linkedList.tail?.previous
-linkedList.addNodeAfterCurrent(Node<Int>(value: 10))
+//linkedList.current = linkedList.tail?.previous
+//linkedList.addNodeAfterCurrent(Node<Int>(value: 10))
+//linkedList.printHead()
+//linkedList.printTail()
+//linkedList.printCurrent()
+//linkedList.printAllNodes()
+
+linkedList.current = linkedList.head
+linkedList.addNodeBeforeCurrent(Node<Int>(value: 10))
 linkedList.printHead()
 linkedList.printTail()
 linkedList.printCurrent()
 linkedList.printAllNodes()
 
-print("before removing")
-linkedList.removeNodeAtIndex(10)
+print("removing")
+linkedList.removeNodeAtIndex(1)
 linkedList.printHead()
 linkedList.printTail()
 linkedList.printCurrent()
