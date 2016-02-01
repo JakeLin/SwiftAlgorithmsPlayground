@@ -32,15 +32,14 @@ class LinkedList<T: Equatable> {
   
   // Mark: - add
   func addNodeToTail(node: Node<T>) {
-    // First node to the list
-    if tail == nil {
-      head = node
+    if let tail = tail {
+      tail.next = node
     } else {
-      tail?.next = node
+      // First node in the list
+      head = node
     }
     
     node.previous = tail
-    
     // new tail
     tail = node
     
@@ -52,15 +51,13 @@ class LinkedList<T: Equatable> {
   }
   
   func addNodeToHead(node: Node<T>) {
-    // First node to the list
-    if head == nil {
+    if let head = head {
+      head.previous = node
+      node.next = head
+    } else {
+      // First node in the list
       tail = node
     }
-    else {
-      node.next = head
-    }
-    
-    head?.previous = node
     
     // new tail
     head = node
@@ -76,6 +73,7 @@ class LinkedList<T: Equatable> {
     if let current = current {
       // Insert node after current
       node.next = current.next
+      current.next?.previous = node
       current.next = node
       node.previous = current
       
@@ -95,6 +93,30 @@ class LinkedList<T: Equatable> {
     count += 1
   }
   
+//  func addNodeBeforeCurrent(node: Node<T>) {
+//    if let current = current {
+//      // Insert node before current
+//      node.previous = current.previous
+//      current.previous = node
+//      node.next = current
+//      
+//      // Update the head if needed
+//      if current == head {
+//        head = node
+//      }
+//    } else {
+//      // If current is nil, this list is empty
+//      head = node
+//      tail = node
+//    }
+//    
+//    current = node
+//    
+//    // increas the count
+//    count += 1
+//  }
+
+  
   // MARK: - remove
   func removeNodeAtIndex(index: Int) {
     guard index < count && index >= 0 else {
@@ -103,7 +125,6 @@ class LinkedList<T: Equatable> {
     
     var nodeToRemove = head
     for i in 0...index {
-      print(i)
       // Find it
       if i == index {
         // It is the head
@@ -114,17 +135,23 @@ class LinkedList<T: Equatable> {
           }
         
           head = nodeToRemove?.next
-        } else if (i == count-1) {
+        } else if i == count-1 {
           // Move current since head is to be removed.
           if current == tail {
             current = tail?.previous
           }
           
           tail = nodeToRemove?.previous
+        } else {
+          // Move current to next if it is to be removed
+          if current == nodeToRemove {
+            current = current?.next
+          }
         }
-        
+      
         nodeToRemove?.previous?.next = nodeToRemove?.next
         nodeToRemove?.next?.previous = nodeToRemove?.previous
+        
         count -= 1
         nodeToRemove = nil
         if count == 0 {
@@ -184,7 +211,7 @@ let linkedList = LinkedList<Int>()
 
 for i in 0..<10 {
   let node = Node<Int>(value: i)
-  linkedList.addNodeToTail(node)
+  linkedList.addNodeToHead(node)
 }
 
 linkedList.printHead()
@@ -192,12 +219,14 @@ linkedList.printTail()
 linkedList.printCurrent()
 linkedList.printAllNodes()
 
+linkedList.current = linkedList.tail?.previous
 linkedList.addNodeAfterCurrent(Node<Int>(value: 10))
 linkedList.printHead()
 linkedList.printTail()
 linkedList.printCurrent()
 linkedList.printAllNodes()
 
+print("before removing")
 linkedList.removeNodeAtIndex(10)
 linkedList.printHead()
 linkedList.printTail()
