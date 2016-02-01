@@ -30,6 +30,7 @@ class LinkedList<T: Equatable> {
   private(set) var tail: Node<T>?
   private(set) var count: Int = 0
   
+  // Mark: - add
   func addNodeToTail(node: Node<T>) {
     // First node to the list
     if tail == nil {
@@ -71,39 +72,30 @@ class LinkedList<T: Equatable> {
     count += 1
   }
   
-//  func addNodeAfterCurrent(node: Node<T>) {
-//    // If current is nil, this list is empty
-//    if current == nil {
-//      head = node
-//      tail = node
-//      current = node
-//    } else {
-//      current?.next = node
-//      node.previous = current
-//      
-////      if current == head? {
-////        current = node
-////        
-////      }
-//    }
-//    
-//    
-//    
-//    // save the previous current as the previous node
-//    previous = current
-//    
-//    // new current node
-//    current?.next = node
-//    node.previous = previous
-//    current = node
-//    
-//    // the newest one is the new tail
-//    tail = current
-//    
-//    // increas the count
-//    count += 1
-//  }
+  func addNodeAfterCurrent(node: Node<T>) {
+    if let current = current {
+      // Insert node after current
+      node.next = current.next
+      current.next = node
+      node.previous = current
+      
+      // Update the tail if needed
+      if current == tail {
+        tail = node
+      }
+    } else {
+      // If current is nil, this list is empty
+      head = node
+      tail = node
+    }
+    
+    current = node
+    
+    // increas the count
+    count += 1
+  }
   
+  // MARK: - remove
   func removeNodeAtIndex(index: Int) {
     guard index < count && index >= 0 else {
       fatalError("Index \(index) does not exist!")
@@ -200,7 +192,13 @@ linkedList.printTail()
 linkedList.printCurrent()
 linkedList.printAllNodes()
 
-linkedList.removeNodeAtIndex(9)
+linkedList.addNodeAfterCurrent(Node<Int>(value: 10))
+linkedList.printHead()
+linkedList.printTail()
+linkedList.printCurrent()
+linkedList.printAllNodes()
+
+linkedList.removeNodeAtIndex(10)
 linkedList.printHead()
 linkedList.printTail()
 linkedList.printCurrent()
