@@ -11,16 +11,14 @@ class Node<T: Equatable>: Equatable {
   private(set) var value: T
   private(set) var previous: Node?
   private(set) var next: Node?
-  private(set) var uuid: String
   
   init(value: T) {
     self.value = value
-    uuid = NSUUID().UUIDString
   }
 }
 
 func == <T: Equatable>(lhs: Node<T>, rhs: Node<T>) -> Bool {
-  return lhs.uuid == rhs.uuid
+  return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
 }
 
 //: Linked List
@@ -234,7 +232,7 @@ linkedList.printCurrent()
 linkedList.printAllNodes()
 
 print("removing")
-linkedList.removeNodeAtIndex(1)
+linkedList.removeNodeAtIndex(0)
 linkedList.printHead()
 linkedList.printTail()
 linkedList.printCurrent()
