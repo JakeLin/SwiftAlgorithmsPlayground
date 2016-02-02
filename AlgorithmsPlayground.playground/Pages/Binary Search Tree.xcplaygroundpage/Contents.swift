@@ -39,8 +39,27 @@ class BinarySearchTree <T: Comparable> {
     }
   }
   
+  func find(key: T) {
+    // Start with the root
+    if self.key == key {
+      print("Find key:\(key)")
+    } else if self.key > key {
+      if let left = left {
+        left.find(key)
+      } else {
+        print("Cannot find key:\(key)")
+      }
+    } else if self.key < key {
+      if let right = right {
+        right.find(key)
+      } else {
+      print("Cannot find key:\(key)")
+      }
+    }
+  }
+  
   // MARK: - print
-  func printTree() {
+  func printKey() {
     print("key=\(key), left=\(left?.key), right=\(right?.key)")
   }
   
@@ -52,8 +71,31 @@ class BinarySearchTree <T: Comparable> {
   }
 }
 
-let binarySearchTree = BinarySearchTree<Int>()
-binarySearchTree.printTree()
+//: Examples
+//: - Add notes
+var binarySearchTree = BinarySearchTree<Int>()
+binarySearchTree.printKey()
 
+binarySearchTree.addNode(2)
+binarySearchTree.printKey()
+
+binarySearchTree.addNode(3)
+binarySearchTree.printKey()
+
+
+binarySearchTree.addNode(1)
+binarySearchTree.printKey()
+
+//: - Find
+binarySearchTree = BinarySearchTree<Int>()
+let numbers = Int.randomNumbers(10)
+for i in numbers {
+  binarySearchTree.addNode(i)
+}
+
+binarySearchTree.printKey()
+binarySearchTree.find(0)
+binarySearchTree.find(1)
+binarySearchTree.find(10)
 
 //: [Next](@next)
