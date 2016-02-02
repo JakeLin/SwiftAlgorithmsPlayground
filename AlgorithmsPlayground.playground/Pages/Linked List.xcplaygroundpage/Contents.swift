@@ -17,7 +17,7 @@ class Node<T: Equatable>: Equatable {
   }
 }
 
-func == <T: Equatable>(lhs: Node<T>, rhs: Node<T>) -> Bool {
+func ==<T: Equatable>(lhs: Node<T>, rhs: Node<T>) -> Bool {
   return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
 }
 

@@ -4,5 +4,6 @@
         <page name='Insertion Sort'/>
         <page name='Bubble Sort'/>
         <page name='Linked List'/>
+        <page name='Binary Search Tree'/>
     </pages>
 </playground>
