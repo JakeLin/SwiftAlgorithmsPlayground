@@ -58,6 +58,30 @@ class BinarySearchTree <T: Comparable> {
     }
   }
   
+  var depth: Int {
+    // empty tree
+    if key == nil {
+      return 0
+    }
+    
+    // only have root
+    if left == nil && right == nil {
+      return 1
+    }
+    
+    var leftDepth = 0
+    if let left = left {
+      leftDepth = left.depth
+    }
+    
+    var rightDepth = 0
+    if let right = right {
+      rightDepth = right.depth
+    }
+    
+    return max(leftDepth, rightDepth) + 1
+  }
+  
   // MARK: - print
   func printKey() {
     print("key=\(key), left=\(left?.key), right=\(right?.key)")
@@ -73,29 +97,31 @@ class BinarySearchTree <T: Comparable> {
 
 //: Examples
 //: - Add notes
-var binarySearchTree = BinarySearchTree<Int>()
-binarySearchTree.printKey()
-
-binarySearchTree.addNode(2)
-binarySearchTree.printKey()
-
-binarySearchTree.addNode(3)
-binarySearchTree.printKey()
-
-
-binarySearchTree.addNode(1)
-binarySearchTree.printKey()
+//var binarySearchTree = BinarySearchTree<Int>()
+//binarySearchTree.printKey()
+//
+//binarySearchTree.addNode(2)
+//binarySearchTree.printKey()
+//
+//binarySearchTree.addNode(3)
+//binarySearchTree.printKey()
+//
+//
+//binarySearchTree.addNode(1)
+//binarySearchTree.printKey()
 
 //: - Find
-binarySearchTree = BinarySearchTree<Int>()
-let numbers = Int.randomNumbers(10)
+let binarySearchTree = BinarySearchTree<Int>()
+let numbers = Int.randomNumbers(3)
 for i in numbers {
   binarySearchTree.addNode(i)
 }
+binarySearchTree.depth
 
 binarySearchTree.printKey()
 binarySearchTree.find(0)
 binarySearchTree.find(1)
 binarySearchTree.find(10)
+binarySearchTree.depth
 
 //: [Next](@next)
